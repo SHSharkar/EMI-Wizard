@@ -9,6 +9,7 @@ EMI Wizard is a powerful, user-friendly EMI calculation tool built with HTML, Ta
   - [Features](#features)
   - [Access](#access)
   - [Usage](#usage)
+  - [Compiling Tailwind CSS Assets](#compiling-tailwind-css-assets)
   - [Contributing](#contributing)
   - [License](#license)
   - [Credits](#credits)
@@ -31,6 +32,14 @@ You can access the EMI Wizard at [https://emi.expense.com.bd/](https://emi.expen
 1. Enter the principal amount, annual interest rate, and tenure in months.
 2. Click on the "Calculate" button to get your results.
 3. You can copy the summary or the link of your EMI calculation by clicking the respective buttons.
+
+## Compiling Tailwind CSS Assets
+
+Whenever there is a change or class addition in the HTML files, you will need to recompile the Tailwind CSS assets. Here are the steps that you need to run in the terminal from the root of the project:
+
+1. Install the necessary packages with the command: `npm install`
+2. Compile and minify the main.css file with the command: `npx tailwindcss -i ./src/main.css -o ./dist/main.css --minify`
+3. After compiling, remove the node_modules folder with the command: `rm -rf node_modules`
 
 ## Contributing
 
