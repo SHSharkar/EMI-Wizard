@@ -277,11 +277,11 @@
           calculate() {
             if (
               this.principalAmount <= 0 ||
-              this.annualInterestRate <= 0 ||
+              this.annualInterestRate < 0 ||
               this.tenureMonths <= 0
             ) {
               alert(
-                "Please enter valid values. All values must be greater than zero."
+                "Please enter valid values. The principal amount and tenure must be greater than zero, and the annual interest rate must be zero or greater."
               );
               return;
             }
@@ -354,7 +354,7 @@
             const urlParams = new URLSearchParams({
               principalAmount: this.principalAmount,
               annualInterestRate: this.annualInterestRate,
-              tenureMonths: this.tenureMonths
+              tenureMonths: this.tenureMonths,
             });
             history.pushState({}, "", "?" + urlParams.toString());
           },
@@ -391,7 +391,7 @@
                 }, 1000);
                 alert("Failed to copy summary. Please try again.");
               });
-          }
+          },
         };
       }
     </script>
