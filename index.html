@@ -275,31 +275,41 @@
           copyStatus: "",
           copySummaryStatus: "",
           calculate() {
-            if (
-              this.principalAmount <= 0 ||
-              this.annualInterestRate < 0 ||
-              this.tenureMonths <= 0
-            ) {
+            if (this.principalAmount <= 0 || this.tenureMonths <= 0) {
               alert(
                 "Please enter valid values. The principal amount and tenure must be greater than zero, and the annual interest rate must be zero or greater."
               );
               return;
             }
 
+            if (this.annualInterestRate < 0) {
+              alert("The annual interest rate must be zero or greater.");
+              return;
+            }
+
             const monthlyInterestRate = this.annualInterestRate / 100 / 12;
             const tenure = this.tenureMonths;
-            this.emi =
-              Math.round(
-                ((this.principalAmount *
-                  monthlyInterestRate *
-                  Math.pow(1 + monthlyInterestRate, tenure)) /
-                  (Math.pow(1 + monthlyInterestRate, tenure) - 1)) *
-                  100
-              ) / 100;
-            this.totalPayment = Math.round(this.emi * tenure * 100) / 100;
-            this.totalInterest =
-              Math.round((this.totalPayment - this.principalAmount) * 100) /
-              100;
+
+            // EMI calculation formula fails if the interest rate is zero, handle this case separately
+            if (this.annualInterestRate == 0) {
+              this.emi =
+                Math.round((this.principalAmount / tenure) * 100) / 100;
+              this.totalPayment = this.principalAmount;
+              this.totalInterest = 0;
+            } else {
+              this.emi =
+                Math.round(
+                  ((this.principalAmount *
+                    monthlyInterestRate *
+                    Math.pow(1 + monthlyInterestRate, tenure)) /
+                    (Math.pow(1 + monthlyInterestRate, tenure) - 1)) *
+                    100
+                ) / 100;
+              this.totalPayment = Math.round(this.emi * tenure * 100) / 100;
+              this.totalInterest =
+                Math.round((this.totalPayment - this.principalAmount) * 100) /
+                100;
+            }
             this.showResults = true;
             this.generateQueryString();
           },
